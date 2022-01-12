@@ -1,0 +1,4 @@
+vendor/
+*.swi
+*.txt
+*mt940

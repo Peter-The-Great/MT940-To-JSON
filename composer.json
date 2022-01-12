@@ -1,0 +1,5 @@
+{
+    "require": {
+        "kingsquare/php-mt940": "^2.0"
+    }
+}

@@ -17,6 +17,14 @@
       <label for="file" class="form-lable"></label>
       <input type="file" class="form-control" name="file" id="file" required>
     </div>
+    <div class="mb-3">
+      <select required class="form-select" name="engine">
+          <option selected>Kies welke bank u gebruikt voor dit bestand</option>
+          <option value="Rabo">Rabobank</option>
+          <option value="Ing">ING</option>
+          <option value="Abn">ABN AMRO</option>
+      </select>
+    </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Upload</button>
   </form>
 </main>

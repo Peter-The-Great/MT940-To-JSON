@@ -1,5 +1,5 @@
 vendor/
 *.swi
 *.txt
-*mt940
+*.mt940
 composer.lock

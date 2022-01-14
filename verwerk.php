@@ -10,7 +10,7 @@ use Composer\Console\Application;
 //Check of de files er zijn.
 if(isset($_FILES['file'],$_POST['engine'])){
     //Check of het bestand geldig is ja of nee.
-    $Toegestaan = array("txt","swi","mt940");
+    $Toegestaan = array("txt","swi","mt940", "mta");
     $fileExt = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
     
     if(in_array($fileExt,$Toegestaan)){

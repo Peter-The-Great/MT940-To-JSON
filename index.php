@@ -15,7 +15,7 @@
   <form method="POST" enctype="multipart/form-data" action="verwerk.php">
     <div class="mb-3">
       <label for="file" class="form-lable"></label>
-      <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940">
+      <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940, .mta">
     </div>
     <div class="mb-3">
       <select required class="form-select" name="engine">

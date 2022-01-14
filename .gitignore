@@ -3,3 +3,4 @@ vendor/
 *.txt
 *.mt940
 composer.lock
+result.json

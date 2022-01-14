@@ -43,19 +43,15 @@ if(isset($_FILES['file'],$_POST['engine'])){
         $newfile = fopen("result.json", "w");
         fwrite($newfile, $parsedStatements);
         fclose($newfile);
-        echo file_exists($newfile);
-        exit();
-        if (file_exists($newfile)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($newfile).'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($newfile));
-            readfile($newfile);
-            header("Location: index.php");
-        }
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.basename($newfile).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($newfile));
+        readfile($newfile);
+        header("Location: index.php?result=" . "result.json");
 
     }else{
         header("Location: index.php?error=ditbestandisnietgeldig.");

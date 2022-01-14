@@ -27,6 +27,11 @@
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Upload</button>
   </form>
+  <?php
+    if($_GET['result']){
+      echo "<a href=". $_GET['result'] ." download=". $_GET['result'] ."><button class='mt-3 w-100 btn btn-lg btn-primary'>Download</button>";
+    }
+  ?>
 </main>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

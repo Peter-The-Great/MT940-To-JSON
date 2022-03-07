@@ -40,19 +40,19 @@ if(isset($_FILES['file'],$_POST['engine'])){
         //https://data.page/json/csv
         $parsedStatements = json_encode($parsedStatements);
 
-        $newfile = fopen("result.json", "w");
+        $newfile = fopen("resultaat.json", "w");
         fwrite($newfile, $parsedStatements);
         fclose($newfile);
+        $newfile = fopen("resultaat.json", "r");
+        $fsize = filesize("resultaat.json");
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="'.basename($newfile).'"');
+        header('Content-Disposition: attachment; filename="resultaat.json"');
         header('Expires: 0');
+        header('Content-Length: ' . $fsize);
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
-        header('Content-Length: ' . filesize($newfile));
-        readfile($newfile);
-        header("Location: index.php?result=" . "result.json");
-
+        readfile("resultaat.json",true);
     }else{
         header("Location: index.php?error=ditbestandisnietgeldig.");
     }

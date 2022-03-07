@@ -12,18 +12,14 @@
 <body>
 <main class="form-signin">
   <h1 class="h3 mb-5 fw-normal text-center">MT940 to JSON Converter</h1>
-  <form method="POST" enctype="multipart/form-data" action="verwerkt.php">
+<<<<<<< HEAD
+  <form method="POST" enctype="multipart/form-data" action="verwerk.php" target="_blank">
+=======
+  <form method="POST" enctype="multipart/form-data" action="verwerk.php">
+>>>>>>> parent of 1d5f373... bewerkt
     <div class="mb-3">
       <label for="file" class="form-lable"></label>
       <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940, .mta">
-    </div>
-    <div class="mb-3">
-      <select required class="form-select" name="type">
-          <option selected>Kies naar welk type bestand u wilt formateren</option>
-          <option value="SWI">SWI/MT-940</option>
-          <option value="XLSX">Excel</option>
-          <option value="JSON">JSON</option>
-      </select>
     </div>
     <div class="mb-3">
       <select required class="form-select" name="engine">
@@ -33,16 +29,16 @@
           <option value="Abn">ABN AMRO</option>
       </select>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Upload</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Convert</button>
   </form>
+<<<<<<< HEAD
+=======
   <?php
-    if (empty($_GET['result'])) {
-      return false;
-    }
-    elseif(isset($_GET['result'])){
+    if($_GET['result']){
       echo "<a href=". $_GET['result'] ." download=". $_GET['result'] ."><button class='mt-3 w-100 btn btn-lg btn-primary'>Download</button>";
     }
   ?>
+>>>>>>> parent of 1d5f373... bewerkt
 </main>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

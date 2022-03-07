@@ -11,3 +11,7 @@ To add the dependency to your project, type this simple command:
 ``` composer install ```
 
 This ensures that you install the latest stable release.
+
+Run this command to test out the web application.
+
+``` php -S localhost:8080 ```

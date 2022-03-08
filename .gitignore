@@ -4,5 +4,7 @@ vendor/
 *.mt940
 !composer.json
 *.json
+*.xlsx
 composer.lock
-test
+test/
+test.php

@@ -43,11 +43,14 @@ if(isset($_FILES['file'],$_POST['engine'])){
         //https://data.page/json/csv
         $parsedStatements = json_encode($parsedStatements);
 
+        //Hier zorgen we ervoor dat we een json bestand schrijven.
         $newfile = fopen($filename . ".json", "w");
         fwrite($newfile, $parsedStatements);
         fclose($newfile);
         $newfile = fopen($filename . ".json", "r");
         $fsize = filesize($filename . ".json");
+
+        //Hier zorgen we ervoor dat het automatisch het bestand download.
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="' . $filename .'.json"');
@@ -57,10 +60,69 @@ if(isset($_FILES['file'],$_POST['engine'])){
         header('Pragma: public');
         readfile($filename . ".json",true);
         unlink($filename . ".json");
+        exit();
+    }
+
+    //Check als het een Excel Bestand is.
+    elseif (in_array($fileExt,$excelfile)) {
+        //Maak variabelen aan van het bestand.
+        $inputFileTemp = $_FILES['file']['tmp_name'];
+
+        /**  Maak een nieuwe Reader van het type gedefinieerd in $fileExt  **/
+        $reader = PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+        /**  Adviseer de Reader dat we alleen cell data willen laden  **/
+        $reader->setReadDataOnly(true);
+
+        /**  Laad $inputFileTemp naar een Spreadsheet Object  **/
+        $spreadsheet = $reader->load($inputFileTemp);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+        $worksheet = $spreadsheet->getSheet(0);//
+
+        //Haal de hoogste rij- en kolomnummers op waarnaar in het werkblad wordt verwezen
+        $highestRow = $worksheet->getHighestRow(); // e.g. 10
+        $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
+        $highestColumnIndex = PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+
+        $data = array();
+        for ($row = 1; $row <= $highestRow; $row++) {
+            $riga = array();
+            for ($col = 1; $col <= $highestColumnIndex; $col++) {
+                $riga[] = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+            }
+            if (1 === $row) {
+                // Header rij. Sla het op in "$keys".
+                $keys = $riga;
+                continue;
+            }
+            $data[] = array_combine($keys, $riga);
+        }
+
+        //Zorg dat alles wordt omgezet naar json.
+        $parsedStatements = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+        //Maak nieuw bestand aan.
+        $newfile = fopen($filename . ".json", "w");
+        fwrite($newfile, $parsedStatements);
+        fclose($newfile);
+
+        $newfile = fopen($filename . ".json", "r");
+        $fsize = filesize($filename . ".json");
+
+        //Hier zorgen we ervoor dat het automatisch het bestand download.
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $filename .'.json"');
+        header('Expires: 0');
+        header('Content-Length: ' . $fsize);
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        readfile($filename . ".json",true);
+        unlink($filename . ".json");
+        exit();
     }else{
         header("Location: index.php?error=ditbestandisnietgeldig");
     }
-}else{
+} else{
     header("Location: index.php?error=geenbestandenmeeverzonden");
 }
 ?>

@@ -10,17 +10,18 @@
     <title>MT940 Formateur</title>
   </head>
 <body>
+
 <main class="form-signin">
-  <h1 class="h3 mb-5 fw-normal text-center">MT940 Formateur</h1>
+  <h1 class="h3 mb-3 fw-normal text-center">MT940 Formateur Naar JSON</h1>
+  <p>Werkt met Excel, JSON en SWI.</p>
   <form method="POST" enctype="multipart/form-data" action="verwerk.php" target="_blank">
-  <form method="POST" enctype="multipart/form-data" action="verwerk.php">
     <div class="mb-3">
       <label for="file" class="form-lable"></label>
-      <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940, .mta">
+      <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940, .mta, .xlsx, .json">
     </div>
     <div class="mb-3">
       <select required class="form-select" name="engine">
-          <option selected>Kies welke bank u gebruikt voor dit bestand</option>
+          <option disabled selected>Kies welke bank u gebruikt voor dit bestand</option>
           <option value="Rabo">Rabobank</option>
           <option value="Ing">ING</option>
           <option value="Abn">ABN AMRO</option>
@@ -30,12 +31,7 @@
   </form>
 </main>
 
-<!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     
 </body>
 </html>

@@ -5,4 +5,4 @@ vendor/
 !composer.json
 *.json
 composer.lock
-test.php
+test

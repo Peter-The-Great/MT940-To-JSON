@@ -19,14 +19,6 @@
       <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940, .mta">
     </div>
     <div class="mb-3">
-      <select required class="form-select" name="format">
-          <option selected>Kies naar welk bestand u het wil formateren</option>
-          <option value="SWI">SWI/MT-940</option>
-          <option value="JSON">JSON</option>
-          <option value="EXC">Excel</option>
-      </select>
-    </div>
-    <div class="mb-3">
       <select required class="form-select" name="engine">
           <option selected>Kies welke bank u gebruikt voor dit bestand</option>
           <option value="Rabo">Rabobank</option>

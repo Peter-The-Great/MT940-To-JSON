@@ -2,6 +2,7 @@ vendor/
 *.swi
 *.txt
 *.mt940
+!composer.json
+*.json
 composer.lock
-result.json
-resultaat.json
+test.php

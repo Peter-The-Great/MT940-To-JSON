@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>MT940 Formateur</title>
   </head>
-<body>
+<body class="bg-dark text-white">
 
 <main class="form-signin">
   <h1 class="h3 mb-3 fw-normal text-center">MT940 Formateur Naar JSON</h1>

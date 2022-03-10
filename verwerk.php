@@ -7,12 +7,15 @@ use Composer\Console\Application;
 // and parse them from a given file, this could be any file or a posted string
 //__DIR__.
 
+require 'xml.php';
+
 //Check of de files er zijn.
 if(isset($_FILES['file'],$_POST['engine'])){
 
     $filename = $_FILES['file']['name'];
     $filenametemp = $_FILES['file']['tmp_name'];
     $fileExt = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+    //$typing away
     //Check of het bestand geldig is ja of nee.
     $swifile = array("txt","swi","mt940", "mta");
     $jsonfile = array("txt","json");
@@ -65,40 +68,9 @@ if(isset($_FILES['file'],$_POST['engine'])){
 
     //Check als het een Excel Bestand is.
     elseif (in_array($fileExt,$excelfile)) {
-        //Maak variabelen aan van het bestand.
-        $inputFileTemp = $_FILES['file']['tmp_name'];
-
-        /**  Maak een nieuwe Reader van het type gedefinieerd in $fileExt  **/
-        $reader = PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
-        /**  Adviseer de Reader dat we alleen cell data willen laden  **/
-        $reader->setReadDataOnly(true);
-
-        /**  Laad $inputFileTemp naar een Spreadsheet Object  **/
-        $spreadsheet = $reader->load($inputFileTemp);
-        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-        $worksheet = $spreadsheet->getSheet(0);//
-
-        //Haal de hoogste rij- en kolomnummers op waarnaar in het werkblad wordt verwezen
-        $highestRow = $worksheet->getHighestRow(); // e.g. 10
-        $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-        $highestColumnIndex = PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
-
-        $data = array();
-        for ($row = 1; $row <= $highestRow; $row++) {
-            $riga = array();
-            for ($col = 1; $col <= $highestColumnIndex; $col++) {
-                $riga[] = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
-            }
-            if (1 === $row) {
-                // Header rij. Sla het op in "$keys".
-                $keys = $riga;
-                continue;
-            }
-            $data[] = array_combine($keys, $riga);
-        }
 
         //Zorg dat alles wordt omgezet naar json.
-        $parsedStatements = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $parsedStatements = excel2json();
 
         //Maak nieuw bestand aan.
         $newfile = fopen($filename . ".json", "w");
@@ -119,7 +91,38 @@ if(isset($_FILES['file'],$_POST['engine'])){
         readfile($filename . ".json",true);
         unlink($filename . ".json");
         exit();
-    }else{
+
+    }elseif (in_array($fileExt,$jsonfile)) {
+
+        // Decodeer jSON naar array
+        $JSON = json_decode(file_get_contents($filenametemp), true);
+
+        // Bewerk de array tot een xml bestand
+        //$xml = Array2XML::createXML('<record/>', $JSON);
+        $xml = array2xml($jSON, false);
+
+        //Maak nieuw bestand aan.
+        $newfile = fopen($filename . ".xml", "w");
+        fwrite($newfile, $xml);
+        fclose($newfile);
+
+        $newfile = fopen($filename . ".xml", "r");
+        $fsize = filesize($filename . ".xml");
+
+        //Hier zorgen we ervoor dat het automatisch het bestand download.
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $filename .'.xml"');
+        header('Expires: 0');
+        header('Content-Length: ' . $fsize);
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        readfile($filename . ".xml",true);
+        unlink($filename . ".xml");
+        exit();
+
+    }
+    else{
         header("Location: index.php?error=ditbestandisnietgeldig");
     }
 } else{

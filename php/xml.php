@@ -7,6 +7,7 @@
  * @param object|boolean $xml 
  * @return string 
  */
+
 function array2xml( $array, $xml = false) {
     // Test if iteration
     if ( $xml === false ) {

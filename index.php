@@ -1,3 +1,8 @@
+<?php
+session_start();
+$token = bin2hex(openssl_random_pseudo_bytes(32));
+$_SESSION['token'] =  $token;
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,6 +12,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>MT940 Formateur</title>
   </head>
 <body class="bg-dark text-white">
@@ -15,9 +21,18 @@
   <h1 class="h3 mb-3 fw-normal text-center">MT940 Formateur Naar JSON</h1>
   <p>Werkt met Excel, JSON en SWI.</p>
   <form method="POST" enctype="multipart/form-data" action="verwerk.php" target="_blank">
+    <input type="hidden" name="crsftoken" id="crsftoken" required value="<?php echo $_SESSION['token']; ?>">
     <div class="mb-3">
       <label for="file" class="form-lable"></label>
       <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940, .mta, .xlsx, .json">
+    </div>
+    <div class="mb-3">
+      <select required class="form-select" name="type">
+          <option disabled selected>Naar welk bestand formateren</option>
+          <option value="XML">XML</option>
+          <option value="XL">Excel</option>
+          <option value="JSON">JSON</option>
+      </select>
     </div>
     <div class="mb-3">
       <select required class="form-select" name="engine">

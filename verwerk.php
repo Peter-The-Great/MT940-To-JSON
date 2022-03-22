@@ -10,7 +10,7 @@ use Composer\Console\Application;
 require 'php/functions.php';
 
 //Check of de files er zijn.
-if(isset($_FILES['file'],$_POST['engine'])){
+if(isset($_FILES['file'],$_POST['engine'],$_POST['crsftoken'])){
     $bestand = new document();
     if(in_array($bestand->fileExt, $bestand->swifile) && $_POST['type'] = "JSON"){
         $bestand->switojson();

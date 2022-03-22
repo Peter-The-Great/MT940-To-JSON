@@ -19,6 +19,7 @@ class document {
     public function __construct() {
         $this->file = $_FILES['file'];
         $this->filename = $_FILES['file']['name'];
+        $this->filenametemp = $_FILES['file']['tmp_name'];
         $this->fileExt = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $this->swifile = array("txt","swi","mt940", "mta");
         $this->jsonfile = array("txt","json");

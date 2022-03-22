@@ -1,6 +1,5 @@
 <?php
 require 'xml.php';
-//require 'custom.php';
 
 /**
  * @author Peter-The-Great

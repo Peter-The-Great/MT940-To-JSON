@@ -11,7 +11,7 @@
 function array2xml( $array, $xml = false) {
     // Test if iteration
     if ( $xml === false ) {
-      $xml = new SimpleXMLElement('<result/>');
+      $xml = new SimpleXMLElement('');
     }
     
     // Loop through array

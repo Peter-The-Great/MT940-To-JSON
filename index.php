@@ -1,7 +1,5 @@
 <?php
-session_start();
 $token = bin2hex(openssl_random_pseudo_bytes(32));
-$_SESSION['token'] =  $token;
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,7 +19,7 @@ $_SESSION['token'] =  $token;
   <h1 class="h3 mb-3 fw-normal text-center">MT940 Formateur Naar JSON</h1>
   <p>Werkt met Excel, JSON en SWI.</p>
   <form method="POST" enctype="multipart/form-data" action="verwerk.php" target="_blank">
-    <input type="hidden" name="crsftoken" id="crsftoken" required value="<?php echo $_SESSION['token']; ?>">
+    <input type="hidden" name="crsftoken" id="crsftoken" required value="<?php echo $token; ?>">
     <div class="mb-3">
       <label for="file" class="form-lable"></label>
       <input type="file" class="form-control" name="file" id="file" required accept=".swi, .txt, .mt940, .mta, .xlsx, .json">
